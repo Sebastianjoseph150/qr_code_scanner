@@ -5,6 +5,8 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'entry_confirmation_screen.dart';
 
 class QRScanScreen extends StatefulWidget {
+  const QRScanScreen({super.key});
+
   @override
   _QRScanScreenState createState() => _QRScanScreenState();
 }

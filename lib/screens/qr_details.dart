@@ -27,14 +27,14 @@ class QRDetailsPage extends StatelessWidget {
                   ),
                   (route) => false);
             },
-            icon: Icon(Icons.arrow_back)),
+            icon: const Icon(Icons.arrow_back)),
         title: const Text('QR Entry Details'),
         actions: [
           IconButton(
             onPressed: () {
               _listAttendance(context);
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.list,
               size: 40,
             ),
@@ -63,7 +63,7 @@ class QRDetailsPage extends StatelessWidget {
                           Card(
                               child: Text(
                             'QR ID: ${details['qrCodeId']}',
-                            style: TextStyle(fontSize: 17),
+                            style: const TextStyle(fontSize: 17),
                           )),
                         ],
                       ),
@@ -78,7 +78,7 @@ class QRDetailsPage extends StatelessWidget {
                         child: Center(
                           child: Text(
                             'NAME: ${name.toString().toUpperCase()}',
-                            style: TextStyle(fontSize: 20),
+                            style: const TextStyle(fontSize: 20),
                           ),
                         ),
                       ),
@@ -92,8 +92,8 @@ class QRDetailsPage extends StatelessWidget {
                         height: screenHeight * .06,
                         child: Center(
                           child: Text(
-                            'PH: ${phoneNumber}',
-                            style: TextStyle(fontSize: 20),
+                            'PH: $phoneNumber',
+                            style: const TextStyle(fontSize: 20),
                           ),
                         ),
                       ),

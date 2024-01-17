@@ -7,7 +7,8 @@ class EntryConfirmationScreen extends StatefulWidget {
   EntryConfirmationScreen({required this.qrCodeId, required this.onConfirmed});
 
   @override
-  _EntryConfirmationScreenState createState() => _EntryConfirmationScreenState();
+  _EntryConfirmationScreenState createState() =>
+      _EntryConfirmationScreenState();
 }
 
 class _EntryConfirmationScreenState extends State<EntryConfirmationScreen> {
@@ -19,10 +20,10 @@ class _EntryConfirmationScreenState extends State<EntryConfirmationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Entry Confirmation'),
+        title: const Text('Entry Confirmation'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,
           child: Column(
@@ -31,7 +32,7 @@ class _EntryConfirmationScreenState extends State<EntryConfirmationScreen> {
               Text('QR Code ID: ${widget.qrCodeId}'),
               TextFormField(
                 controller: _nameController,
-                decoration: InputDecoration(labelText: 'Name'),
+                decoration: const InputDecoration(labelText: 'Name'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter your name';
@@ -41,7 +42,7 @@ class _EntryConfirmationScreenState extends State<EntryConfirmationScreen> {
               ),
               TextFormField(
                 controller: _phoneNumberController,
-                decoration: InputDecoration(labelText: 'Phone number'),
+                decoration: const InputDecoration(labelText: 'Phone number'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter your phone number';
@@ -49,12 +50,12 @@ class _EntryConfirmationScreenState extends State<EntryConfirmationScreen> {
                   return null;
                 },
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               ElevatedButton(
                 onPressed: () {
                   _submitForm();
                 },
-                child: Text('Confirm Entry'),
+                child: const Text('Confirm Entry'),
               ),
             ],
           ),
@@ -65,9 +66,25 @@ class _EntryConfirmationScreenState extends State<EntryConfirmationScreen> {
 
   void _submitForm() {
     if (_formKey.currentState?.validate() ?? false) {
-      // Form is valid, call the onConfirmed callback
+      if (!isValidFirestoreDocumentPath(widget.qrCodeId)) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            backgroundColor: Colors.red,
+            content: Text(
+              'Invalid QR code',
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+        );
+        return;
+      }
+
       widget.onConfirmed(_nameController.text, _phoneNumberController.text);
       Navigator.pop(context);
     }
+  }
+
+  bool isValidFirestoreDocumentPath(String path) {
+    return !path.contains('//');
   }
 }

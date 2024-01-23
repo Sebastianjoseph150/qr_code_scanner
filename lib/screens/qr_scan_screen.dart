@@ -5,7 +5,9 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'entry_confirmation_screen.dart';
 
 class QRScanScreen extends StatefulWidget {
-  const QRScanScreen({super.key});
+  const QRScanScreen({
+    super.key,
+  });
 
   @override
   _QRScanScreenState createState() => _QRScanScreenState();
@@ -26,9 +28,9 @@ class _QRScanScreenState extends State<QRScanScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: const Text('QR Scanner'),
-        foregroundColor: Colors.black,
+        backgroundColor: Colors.black12,
+        title: const Text('QR SCANNER'),
+        foregroundColor: Colors.grey.shade400,
         centerTitle: true,
       ),
       backgroundColor: const Color.fromARGB(0, 255, 255, 255),
@@ -39,11 +41,11 @@ class _QRScanScreenState extends State<QRScanScreen> {
             onQRViewCreated: _onQRViewCreated,
           ),
           Positioned(
-            left: screenWidth * .25,
+            left: screenWidth * .197,
             top: 200,
             child: Container(
-              height: 200,
-              width: 200,
+              height: 250,
+              width: 250,
               decoration: BoxDecoration(
                   border: Border.all(width: 4, color: Colors.blue.shade300),
                   borderRadius: BorderRadius.circular(10)),
@@ -57,7 +59,7 @@ class _QRScanScreenState extends State<QRScanScreen> {
   void _onQRViewCreated(QRViewController controller) {
     this.controller = controller;
     controller.scannedDataStream.listen((scanData) async {
-      String scannedCode = scanData.code!;
+      String scannedCode = scanData.code!; //qr xodeeee
 
       if (!isDetailsPageOpened) {
         isDetailsPageOpened = true;
@@ -104,7 +106,9 @@ class _QRScanScreenState extends State<QRScanScreen> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => QRDetailsPage(details: details),
+                builder: (context) => QRDetailsPage(
+                  details: details,
+                ),
               ),
             ).then((_) {
               // Resume scanning when QRDetailsPage is closed
